@@ -1,0 +1,71 @@
+#!/usr/bin/env python
+
+import sys
+import string
+
+last_author_id = None
+current_ident = "-"
+current_title="-"
+current_tagnames="-"
+current_body="-"
+current_node_type="-"
+current_parent_id="-"
+current_abs_parent_id="-"
+current_added_at="-"
+current_score="-"
+
+trouve = None
+posts=[]
+
+for line in sys.stdin:
+    data=line.strip().split("\t")
+    author_id, ident, title, tagnames, body, node_type, parent_id, abs_parent_id, added_at, score, reputation, gold, silver, bronze = data
+
+    if not last_author_id or last_author_id != author_id:
+	if ident == "-":
+		pass
+		
+	else:
+        	last_author_id = author_id
+        	current_ident = ident
+		current_title= title
+		current_tagnames= tagnames
+		current_body= body
+		current_node_type= node_type
+		current_parent_id= parent_id
+		current_abs_parent_id= abs_parent_id
+		current_added_at= added_at 
+		current_score= score
+		value=last_author_id, current_ident, current_title, current_tagnames, current_body, current_node_type, current_parent_id, current_abs_parent_id, current_added_at, current_score
+		posts.append(value)
+    elif author_id == last_author_id and ident != "-":
+	current_ident = ident
+	current_title= title
+	current_tagnames= tagnames
+	current_body= body
+	current_node_type= node_type
+	current_parent_id= parent_id
+	current_abs_parent_id= abs_parent_id
+	current_added_at= added_at 
+	current_score= score
+	value=last_author_id, current_ident, current_title, current_tagnames, current_body, current_node_type, current_parent_id, current_abs_parent_id, current_added_at, current_score
+	posts.append(value)	
+    elif author_id == last_author_id and ident=="-":
+	for post in posts:
+		last_author_id, current_ident, current_title, current_tagnames, current_body, current_node_type, current_parent_id, current_abs_parent_id, current_added_at, current_score = post
+        	ident = current_ident
+		title = current_title
+		tagnames = current_tagnames
+		body = current_body
+		node_type = current_node_type
+		parent_id = current_parent_id
+		abs_parent_id = current_abs_parent_id
+		added_at = current_added_at 
+		score = current_score
+		if author_id == "100002517":
+			trouve = "{0}\t{1}\t{2}\t{3}\t{4}\t{5}\t{6}\t{7}\t{8}\t{9}\t{10}\t{11}\t{12}\t{13}".format("^","^", "^", "^", "^", "^", "^", "^", "^", "^", reputation, gold, silver, bronze)
+ 		print "{0}\t{1}\t{2}\t{3}\t{4}\t{5}\t{6}\t{7}\t{8}\t{9}\t{10}\t{11}\t{12}\t{13}".format(ident,title, tagnames, body, node_type, parent_id, 	abs_parent_id, added_at, score, author_id, reputation, gold, silver, bronze)
+	posts=[]
+print "h"
+if trouve != None:
+	 print trouve

@@ -1,0 +1,9 @@
+#! /usr/bin/python
+nom= "chaima"
+prenom="derbali"
+age="15"
+
+value=nom, prenom, age
+post=[]
+post.append(value)
+print post[0].['nom']
